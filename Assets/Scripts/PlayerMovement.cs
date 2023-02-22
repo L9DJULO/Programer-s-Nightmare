@@ -2,10 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Photon.Pun;
 using UnityEngine.UI;
 using System.Windows.Input;
 
+using Photon.Pun;
 public class PlayerMovement : MonoBehaviour
 {
     float playerHeight = 2f;
@@ -138,12 +138,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            visible = !visible;
-        }
-
-        if (view.IsMine && !visible)
+        if (view.isMine)
         {
             isGrounded = Physics.CheckSphere(transform.position - new Vector3(0, 0.1f, 0), groundDistance, groundMask);
             if (Physics.CheckSphere(transform.position - new Vector3(0, 0.1f, 0), groundDistance, Lava))
@@ -165,7 +160,7 @@ public class PlayerMovement : MonoBehaviour
                     countJump = 0;
                     SoundManagerScript.PlaySound("jump");
                 }
-            }
+           }
 
             Myinput();
             ControlDrag();
@@ -200,9 +195,9 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
-        if (!view.IsMine)
+        if (!view.isMine)
         {
-            cam.gameObject.SetActive(false);
+           cam.gameObject.SetActive(false);
         }
     }
 

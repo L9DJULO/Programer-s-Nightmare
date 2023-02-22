@@ -24,28 +24,15 @@ public class look : MonoBehaviour
     float xRotation;
     float yRotation;
 
-    private bool visible;
-
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        visible = false;
         view = GetComponent<PhotonView>();
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            visible = !visible;
-            Cursor.visible = visible;
-            if (Cursor.lockState == CursorLockMode.Locked)
-                Cursor.lockState = CursorLockMode.None;
-            else
-                Cursor.lockState = CursorLockMode.Locked;
-        }
-
-        if (!visible && view.IsMine)
+       if (view.isMine)
         {
             MyInput();
 

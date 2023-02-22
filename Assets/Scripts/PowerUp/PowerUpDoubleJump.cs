@@ -24,7 +24,6 @@ public class PowerUpDoubleJump : MonoBehaviour
         Instantiate(pickupEffect, transform.position, transform.rotation);
         // Apply effect to the player
         canDoubleJump = true;
-        PANELDIALOGUE.test = true;
         // Remove PowerUp 
         Destroy(gameObject);
     }
