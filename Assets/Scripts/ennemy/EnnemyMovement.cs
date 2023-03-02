@@ -9,6 +9,8 @@ using UnityEngine.Animations;
 public class EnnemyMovement : MonoBehaviour
 {
     public GameObject fusil;
+
+    public beacon cover;
     public NavMeshAgent ennemy;
     public Transform player;
     public LayerMask WhatIsGround, WhatIsPlayer;
@@ -153,7 +155,7 @@ public class EnnemyMovement : MonoBehaviour
 
         }
     }
-    public void TakeCover()
+    public beacon ChoseCover()
     {
         GameObject l = GameObject.Find("ListBeacon");
         ListBeacon List = l.GetComponent(typeof(ListBeacon)) as ListBeacon;
@@ -171,9 +173,19 @@ public class EnnemyMovement : MonoBehaviour
                 }
             
             }
-            ennemy.SetDestination(b.transform.position);
+
+            return b;
+            
         }
-        
+
+        return null;
+
+
+    }
+
+    public void TakeCover()
+    {
+        ennemy.SetDestination(cover.transform.position);
         
     }
 }
