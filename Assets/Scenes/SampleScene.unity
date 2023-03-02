@@ -18069,6 +18069,14 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 903722832033221518, guid: 9c98017ae02ca2345bf9f85b4587aff3, type: 3}
+      propertyPath: viewIdField
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 903722832033221518, guid: 9c98017ae02ca2345bf9f85b4587aff3, type: 3}
+      propertyPath: instantiationId
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2230136170140745582, guid: 9c98017ae02ca2345bf9f85b4587aff3, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.000112678856
@@ -18117,6 +18125,14 @@ PrefabInstance:
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 1009562647}
+    - target: {fileID: 4759717931842599544, guid: 9c98017ae02ca2345bf9f85b4587aff3, type: 3}
+      propertyPath: viewIdField
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4759717931842599544, guid: 9c98017ae02ca2345bf9f85b4587aff3, type: 3}
+      propertyPath: instantiationId
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6565432645906764676, guid: 9c98017ae02ca2345bf9f85b4587aff3, type: 3}
       propertyPath: m_RootOrder
       value: 2
