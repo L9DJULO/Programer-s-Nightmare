@@ -153,4 +153,27 @@ public class EnnemyMovement : MonoBehaviour
 
         }
     }
+    public void TakeCover()
+    {
+        GameObject l = GameObject.Find("ListBeacon");
+        ListBeacon List = l.GetComponent(typeof(ListBeacon)) as ListBeacon;
+        if (List.entitiessafe.Count!=0)
+        {
+            beacon b = List.entities[0];
+            float dist = Vector3.Distance(this.transform.position, b.transform.position);
+            foreach (var v in List.entitiessafe)
+            {
+                float dist2 = Vector3.Distance(this.transform.position, b.transform.position);
+                if (dist2 < dist)
+                {
+                    b = v;
+                    dist = Vector3.Distance(this.transform.position, v.transform.position);
+                }
+            
+            }
+            ennemy.SetDestination(b.transform.position);
+        }
+        
+        
+    }
 }
