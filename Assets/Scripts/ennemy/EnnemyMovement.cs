@@ -9,6 +9,8 @@ using UnityEngine.Animations;
 public class EnnemyMovement : MonoBehaviour
 {
     public GameObject fusil;
+
+    public beacon cover;
     public NavMeshAgent ennemy;
     public Transform player;
     public LayerMask WhatIsGround, WhatIsPlayer;
@@ -152,5 +154,38 @@ public class EnnemyMovement : MonoBehaviour
             Destroy(gameObject);
 
         }
+    }
+    public beacon ChoseCover()
+    {
+        GameObject l = GameObject.Find("ListBeacon");
+        ListBeacon List = l.GetComponent(typeof(ListBeacon)) as ListBeacon;
+        if (List.entitiessafe.Count!=0)
+        {
+            beacon b = List.entities[0];
+            float dist = Vector3.Distance(this.transform.position, b.transform.position);
+            foreach (var v in List.entitiessafe)
+            {
+                float dist2 = Vector3.Distance(this.transform.position, b.transform.position);
+                if (dist2 < dist)
+                {
+                    b = v;
+                    dist = Vector3.Distance(this.transform.position, v.transform.position);
+                }
+            
+            }
+
+            return b;
+            
+        }
+
+        return null;
+
+
+    }
+
+    public void TakeCover()
+    {
+        ennemy.SetDestination(cover.transform.position);
+        
     }
 }
