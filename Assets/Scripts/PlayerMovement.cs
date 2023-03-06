@@ -194,7 +194,6 @@ public class PlayerMovement : MonoBehaviour
             }
 
         }
-
         if (!view.isMine)
         {
            cam.gameObject.SetActive(false);
@@ -204,7 +203,6 @@ public class PlayerMovement : MonoBehaviour
     void  Jump() 
     {
         rb.AddForce(transform.up * jumpforce, ForceMode.Impulse);
-
     }
    
     private void Myinput()

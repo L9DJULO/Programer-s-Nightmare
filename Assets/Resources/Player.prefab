@@ -2750,7 +2750,8 @@ MonoBehaviour:
   SprintMultiplier: 2
   groundMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 4294967295
+  col: {fileID: 0}
   Lava:
     serializedVersion: 2
     m_Bits: 1536
