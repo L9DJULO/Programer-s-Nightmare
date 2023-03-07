@@ -9,65 +9,41 @@ using Photon.Pun;
 public class PlayerMovement : MonoBehaviour
 {
     float playerHeight = 2f;
-
     private Animator animator;
     PhotonView view;
     [SerializeField] Transform orientation;
-
     [Header("JumpLimit")]
     public int jumpLimit = 1;
-    
-
     [Header("Movement")]
     float moveSpeed = 3f;
     float movementMultiplier = 20f;
     [SerializeField] float airMultiplier = 0.4f;
-    
-
     [Header("Jumping")] 
     public float jumpforce = 25f;
     public static bool canDouble = false;
-   
-
-
     [Header("Drag")]
     float groundDrag = 6f;
     public static float airDrag = 3f;
-
     Rigidbody rb;
-
     Vector3 moveDirection;
-    
-    
-    
-    
+  
     [Header("Sprinting")] 
     public static bool IsSprinting;
     public  float SprintMultiplier = 1.5f;
-    
-    
     [Header("GroundDetection")] 
     [SerializeField] LayerMask groundMask;
-    public static bool isGrounded;
+    public static bool isGrounded = true;
+    public bool islava = false;
     float groundDistance = 0.0001f;
     private bool nothing;
 
-    
-
-  
-    
-    
     float verticalMovement;
     float horizontalMovement;
     private RaycastHit slopeHit; 
     Vector3 slopeMoveDirection;
-
-
     Vector3 oldPosition;
     public LayerMask Lava;
-
     public Camera cam;
-
     private void Start()
     {
         animator = GetComponent<Animator>();
@@ -140,12 +116,10 @@ public class PlayerMovement : MonoBehaviour
 
         if (view.isMine)
         {
-            isGrounded = Physics.CheckSphere(transform.position - new Vector3(0, 0.1f, 0), groundDistance, groundMask);
-            if (Physics.CheckSphere(transform.position - new Vector3(0, 0.1f, 0), groundDistance, Lava))
+            if (islava)
             {
                 rb.position = oldPosition;
             }
-            
             if (isGrounded)
             {
                 if (countJump == 1)
@@ -161,16 +135,15 @@ public class PlayerMovement : MonoBehaviour
                     SoundManagerScript.PlaySound("jump");
                 }
            }
-
             Myinput();
             ControlDrag();
-
             if (Input.GetKeyDown(INPUTS.Jump))
             {
                 if (isGrounded)
                 {
                     countJump++;
                     Jump();
+                    isGrounded = false;
                     canDouble = true;
                     SoundWalk.PlayWalk("stop");
                 }
@@ -178,28 +151,35 @@ public class PlayerMovement : MonoBehaviour
                 {
                     countJump++;
                     Jump();
+                    isGrounded = false;
                     canDouble = false;
                 }
-
-
             }
-
             slopeMoveDirection = Vector3.ProjectOnPlane(moveDirection, slopeHit.normal);
-
-           if (Input.GetKeyDown(INPUTS.sprint))
+            if (Input.GetKeyDown(INPUTS.sprint))
                Sprint();
             if (Input.GetKeyUp(INPUTS.sprint) )
             {
                 StopSprint();   
             }
-
         }
         if (!view.isMine)
         {
            cam.gameObject.SetActive(false);
         }
     }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Ground")
+        {
+            isGrounded = true;
+        }
 
+        if (collision.gameObject.tag == "LAVA")
+        {
+            islava = true;
+        }
+    }
     void  Jump() 
     {
         rb.AddForce(transform.up * jumpforce, ForceMode.Impulse);
