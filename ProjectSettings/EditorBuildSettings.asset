@@ -8,12 +8,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/JulesMenu/Menu.unity
     guid: e6cb278960deef847be520be907fe4f0
-  - enabled: 0
-    path: Assets/Scenes/Loading.unity
-    guid: 879da75d3bf0c334a91ecd8be0073e51
-  - enabled: 0
-    path: Assets/Scenes/Lobby.unity
-    guid: d638371bb6265a74eaf0ab439b0a4842
   - enabled: 1
     path: Assets/Scenes/Levels/Multi/LEVEL 1.unity
     guid: 339e3b04265961c4c9617825b61b33ab

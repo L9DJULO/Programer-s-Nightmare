@@ -60,7 +60,6 @@ public class PlayerShoot : MonoBehaviour
                     StartCoroutine(Reload());
                 else if ( Input.GetKey(INPUTS.tir_principal))
                 {
-                    SoundManagerScript.PlaySound("gunshot");
                     Shoot();
                     ammo.text = BalleRestante + "/20";
                     muzzleFlash.Play();
@@ -137,7 +136,6 @@ public class PlayerShoot : MonoBehaviour
     IEnumerator Reload()
     {
         canShoot = false;
-        SoundManagerScript.PlaySound("reload");
         yield return new WaitForSeconds(1.5f);
         canShoot = true;
         BalleRestante = weapon.chargeur;

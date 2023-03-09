@@ -94,7 +94,6 @@ public class Hook : MonoBehaviour
         Ray ray = new Ray(HandPos.position, HandPos.forward);
         if (Physics.Raycast(ray, out hit, maxDistance, Hookable))
         {
-            SoundManagerScript.PlaySound("grappling");
             HookPoint = hit.point;
             isGrappling = true;
             GrapplingHook.parent = null;

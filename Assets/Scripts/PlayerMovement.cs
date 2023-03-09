@@ -57,7 +57,6 @@ public class PlayerMovement : MonoBehaviour
 
     private bool visible;
     private int countJump;
-    private bool SoundSprint;
 
     private void Update()
     {
@@ -100,19 +99,6 @@ public class PlayerMovement : MonoBehaviour
             }
         }
         animator.SetBool("grounded", isGrounded);
-        if (!visible)
-        {
-            if (Input.GetKeyDown(INPUTS.forward))
-            {
-                SoundSprint = true;
-                SoundWalk.PlayWalk("running");
-            }
-            if (Input.GetKeyUp(INPUTS.forward))
-            {
-                SoundSprint = false;
-                SoundWalk.PlayWalk("stop");
-            }
-        }
 
         if (view.isMine)
         {
@@ -125,14 +111,10 @@ public class PlayerMovement : MonoBehaviour
                 if (countJump == 1)
                 {
                     countJump = 0;
-                    SoundManagerScript.PlaySound("jump");
-                    if (SoundSprint)
-                        SoundWalk.PlayWalk("running");
                 }
                 else if (countJump == 2)
                 {
                     countJump = 0;
-                    SoundManagerScript.PlaySound("jump");
                 }
            }
             Myinput();
@@ -145,7 +127,6 @@ public class PlayerMovement : MonoBehaviour
                     Jump();
                     isGrounded = false;
                     canDouble = true;
-                    SoundWalk.PlayWalk("stop");
                 }
                 else if (PowerUpDoubleJump.canDoubleJump && canDouble)
                 {

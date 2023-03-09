@@ -27,12 +27,10 @@ public class TimeBody : MonoBehaviour
 		{
 			if (Input.GetKeyDown(INPUTS.Back_in_time))
 			{
-				SoundManagerScript.PlaySound("backintime");
 				StartRewind();
 			}
 			if (Input.GetKeyUp(KeyCode.E))
 			{
-				SoundManagerScript.PlaySound("stop");
 				StopRewind();
 			}
 		}

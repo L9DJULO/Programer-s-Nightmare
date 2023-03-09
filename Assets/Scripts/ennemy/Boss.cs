@@ -88,12 +88,6 @@ public class Boss : MonoBehaviour
                 animator.SetBool("Walk", false);
                 if (CanCharge)
                 {
-                    if (!soundplaying)
-                    {
-                        StartCoroutine(SoundCharge());
-                        SoundManagerScript.PlaySound("scream");
-
-                    }
                     StartCoroutine(Charge());
                 }
                 else
@@ -163,14 +157,7 @@ public class Boss : MonoBehaviour
         yield return new WaitForSeconds(5);
         StartCoroutine(WaitForCharge());
     }
-
-    private bool soundplaying = false;
-   IEnumerator SoundCharge()
-    {
-        soundplaying = true;
-        yield return new WaitForSeconds(10);
-        soundplaying = false;
-    }
+    
 
    IEnumerator WaitForCharge ()
    {
@@ -192,7 +179,6 @@ public class Boss : MonoBehaviour
         if (Physics.Raycast(cam.transform.position, cam.transform.forward+Random_xy, out hit, weapon.range) && CanShoot)
         {
             MuzzleFlash.Play();
-            SoundManagerScript.PlaySound("gunshot");
             StartCoroutine(WaitForShoot());
             PlayerDamage p = hit.transform.GetComponent<PlayerDamage>();
             if (p != null)
