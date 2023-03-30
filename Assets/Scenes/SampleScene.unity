@@ -232,7 +232,7 @@ GameObject:
   - component: {fileID: 283116045}
   m_Layer: 6
   m_Name: Ground (4)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 3
   m_StaticEditorFlags: 4294967295
@@ -5288,7 +5288,7 @@ GameObject:
   - component: {fileID: 650986564}
   m_Layer: 6
   m_Name: Ground (3)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -5960,6 +5960,14 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0.00398474
       objectReference: {fileID: 0}
+    - target: {fileID: 3017419892128159732, guid: 9c98017ae02ca2345bf9f85b4587aff3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.09465217
+      objectReference: {fileID: 0}
+    - target: {fileID: 3017419892128159732, guid: 9c98017ae02ca2345bf9f85b4587aff3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3.4989998
+      objectReference: {fileID: 0}
     - target: {fileID: 4759717931842599544, guid: 9c98017ae02ca2345bf9f85b4587aff3, type: 3}
       propertyPath: viewIdField
       value: 6
@@ -6046,6 +6054,36 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c98017ae02ca2345bf9f85b4587aff3, type: 3}
+--- !u!1 &798231770 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6565432645906764797, guid: 9c98017ae02ca2345bf9f85b4587aff3, type: 3}
+  m_PrefabInstance: {fileID: 798231769}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &798231771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 798231770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a480ac6b9154e3e4e89567ea178d08ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  orientation: {fileID: 0}
+  jumpLimit: 1
+  airMultiplier: 0.4
+  jumpforce: 25
+  SprintMultiplier: 1.5
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 0
+  islava: 0
+  Lava:
+    serializedVersion: 2
+    m_Bits: 0
+  cam: {fileID: 0}
 --- !u!1 &830326746
 GameObject:
   m_ObjectHideFlags: 0
@@ -13364,7 +13402,7 @@ GameObject:
   - component: {fileID: 1888340437}
   m_Layer: 6
   m_Name: Ground (2)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -13559,7 +13597,7 @@ GameObject:
   - component: {fileID: 2036367106}
   m_Layer: 6
   m_Name: Cube (12)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
   m_StaticEditorFlags: 4294967295
@@ -13654,7 +13692,7 @@ GameObject:
   - component: {fileID: 2085774592}
   m_Layer: 6
   m_Name: Ground
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13844,7 +13882,7 @@ GameObject:
   - component: {fileID: 2122747245}
   m_Layer: 6
   m_Name: Ground (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
