@@ -49,7 +49,7 @@ public class PlayerMovement : MonoBehaviour
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
-        oldPosition =rb.position ;
+        oldPosition = rb.position ;
         view = GetComponent<PhotonView>();
         visible = false;
         countJump = 0;
