@@ -56217,12 +56217,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 6565432645906764797, guid: 9c98017ae02ca2345bf9f85b4587aff3, type: 3}
-  minX: 0
-  minY: 0
-  maxX: 0
-  maxY: 0
-  minZ: 0
-  maxZ: 0
+  minX: 90
+  minY: 13
+  maxX: 92
+  maxY: 15
+  minZ: 80
+  maxZ: 81
 --- !u!4 &1867387101
 Transform:
   m_ObjectHideFlags: 0
