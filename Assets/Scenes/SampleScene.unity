@@ -5916,6 +5916,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 233068336610618656, guid: 9c98017ae02ca2345bf9f85b4587aff3, type: 3}
+      propertyPath: m_ScaleModel.SynchronizeEnabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 233068336610618656, guid: 9c98017ae02ca2345bf9f85b4587aff3, type: 3}
+      propertyPath: m_PositionModel.SynchronizeEnabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 233068336610618656, guid: 9c98017ae02ca2345bf9f85b4587aff3, type: 3}
+      propertyPath: m_RotationModel.SynchronizeEnabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 903722832033221518, guid: 9c98017ae02ca2345bf9f85b4587aff3, type: 3}
       propertyPath: viewIdField
       value: 1
@@ -5950,11 +5962,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4759717931842599544, guid: 9c98017ae02ca2345bf9f85b4587aff3, type: 3}
       propertyPath: viewIdField
-      value: 2
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4759717931842599544, guid: 9c98017ae02ca2345bf9f85b4587aff3, type: 3}
       propertyPath: instantiationId
-      value: 2
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4759717931842599544, guid: 9c98017ae02ca2345bf9f85b4587aff3, type: 3}
+      propertyPath: ownershipTransfer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6565432645268855582, guid: 9c98017ae02ca2345bf9f85b4587aff3, type: 3}
+      propertyPath: field of view
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 6565432645268855582, guid: 9c98017ae02ca2345bf9f85b4587aff3, type: 3}
       propertyPath: m_TargetDisplay
@@ -6019,6 +6039,10 @@ PrefabInstance:
     - target: {fileID: 7820074575963963310, guid: 9c98017ae02ca2345bf9f85b4587aff3, type: 3}
       propertyPath: m_LocalPosition.z
       value: -0.000041604493
+      objectReference: {fileID: 0}
+    - target: {fileID: 9065043432612600023, guid: 9c98017ae02ca2345bf9f85b4587aff3, type: 3}
+      propertyPath: volumeLayer.m_Bits
+      value: 14080
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c98017ae02ca2345bf9f85b4587aff3, type: 3}

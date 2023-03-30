@@ -144,10 +144,6 @@ public class PlayerMovement : MonoBehaviour
                 StopSprint();   
             }
         }
-        if (!view.isMine)
-        {
-           cam.gameObject.SetActive(false);
-        }
     }
     private void OnCollisionEnter(Collision collision)
     {
