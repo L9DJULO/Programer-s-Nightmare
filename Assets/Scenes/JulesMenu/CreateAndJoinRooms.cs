@@ -22,7 +22,7 @@ public class CreateAndJoinRooms : MonoBehaviour
 
     public void OnJoinedRoom()
     {
-        PhotonNetwork.LoadLevel("Level_1S");
+        PhotonNetwork.LoadLevel("Level_1");
     }
 
 }

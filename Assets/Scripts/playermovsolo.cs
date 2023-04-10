@@ -4,13 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Windows.Input;
-
-using Photon.Pun;
-public class PlayerMovement : MonoBehaviour
+public class playermovsolo : MonoBehaviour
 {
     float playerHeight = 2f;
     private Animator animator;
-    PhotonView view;
     [SerializeField] Transform orientation;
     [Header("JumpLimit")]
     public int jumpLimit = 1;
@@ -18,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
     float moveSpeed = 3f;
     float movementMultiplier = 20f;
     [SerializeField] float airMultiplier = 0.4f;
-    [Header("Jumping")] 
+    [Header("Jumping")]
     public float jumpforce = 25f;
     public static bool canDouble = false;
     [Header("Drag")]
@@ -26,11 +23,11 @@ public class PlayerMovement : MonoBehaviour
     public static float airDrag = 3f;
     Rigidbody rb;
     Vector3 moveDirection;
-  
-    [Header("Sprinting")] 
+
+    [Header("Sprinting")]
     public static bool IsSprinting;
-    public  float SprintMultiplier = 1.5f;
-    [Header("GroundDetection")] 
+    public float SprintMultiplier = 1.5f;
+    [Header("GroundDetection")]
     [SerializeField] LayerMask groundMask;
     public static bool isGrounded = true;
     public bool islava = false;
@@ -39,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
 
     float verticalMovement;
     float horizontalMovement;
-    private RaycastHit slopeHit; 
+    private RaycastHit slopeHit;
     Vector3 slopeMoveDirection;
     Vector3 oldPosition;
     public LayerMask Lava;
@@ -49,8 +46,7 @@ public class PlayerMovement : MonoBehaviour
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
-        oldPosition = rb.position ;
-        view = GetComponent<PhotonView>();
+        oldPosition = rb.position;
         visible = false;
         countJump = 0;
     }
@@ -99,8 +95,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
         animator.SetBool("grounded", isGrounded);
-        if (view.isMine)
-        {
+
             if (islava)
             {
                 rb.position = oldPosition;
@@ -115,7 +110,7 @@ public class PlayerMovement : MonoBehaviour
                 {
                     countJump = 0;
                 }
-           }
+            }
             Myinput();
             ControlDrag();
             if (Input.GetKeyDown(INPUTS.Jump))
@@ -137,16 +132,11 @@ public class PlayerMovement : MonoBehaviour
             }
             slopeMoveDirection = Vector3.ProjectOnPlane(moveDirection, slopeHit.normal);
             if (Input.GetKeyDown(INPUTS.sprint))
-               Sprint();
-            if (Input.GetKeyUp(INPUTS.sprint) )
+                Sprint();
+            if (Input.GetKeyUp(INPUTS.sprint))
             {
-                StopSprint();   
+                StopSprint();
             }
-        }
-        else
-        {
-            cam.enabled = false;
-        }
     }
     private void OnCollisionEnter(Collision collision)
     {
@@ -160,11 +150,11 @@ public class PlayerMovement : MonoBehaviour
             islava = true;
         }
     }
-    void  Jump() 
+    void Jump()
     {
         rb.AddForce(transform.up * jumpforce, ForceMode.Impulse);
     }
-   
+
     private void Myinput()
     {
         horizontalMovement = Input.GetAxisRaw("Horizontal");
@@ -200,17 +190,17 @@ public class PlayerMovement : MonoBehaviour
 
     private bool OnSlop()
     {
-       if (Physics.Raycast(transform.position , Vector3.down ,out slopeHit , playerHeight/2+0.5f))
-       {
-           if (slopeHit.normal != Vector3.up)
-               return true;
-           else
-           {
-               return false;
-           }
-       }
-       return false;
-       
+        if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight / 2 + 0.5f))
+        {
+            if (slopeHit.normal != Vector3.up)
+                return true;
+            else
+            {
+                return false;
+            }
+        }
+        return false;
+
     }
     void Sprint()
     {
@@ -220,9 +210,9 @@ public class PlayerMovement : MonoBehaviour
 
     void StopSprint()
     {
-        movementMultiplier = 20f ;
+        movementMultiplier = 20f;
         IsSprinting = false;
     }
 
-    
+
 }
