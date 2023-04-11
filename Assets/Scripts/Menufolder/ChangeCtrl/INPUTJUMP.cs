@@ -7,6 +7,11 @@ public class INPUTJUMP : MonoBehaviour
 {
     public GameObject detectInput;
     public GameObject CtrlSettings;
+    private void Start()
+    {
+        detectInput.SetActive(true);
+        CtrlSettings.SetActive(false);
+    }
     private void Update()
     {
         foreach (KeyCode kcode in Enum.GetValues(typeof(KeyCode)))
@@ -16,6 +21,7 @@ public class INPUTJUMP : MonoBehaviour
                 INPUTS.Jump = kcode;
                 detectInput.SetActive(false);
                 CtrlSettings.SetActive(true);
+                gameObject.SetActive(false);
             }
         }
     }
