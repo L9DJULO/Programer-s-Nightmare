@@ -120,6 +120,7 @@ public class EnnemyMovement : MonoBehaviour
         fusil.transform.LookAt(player);
         StartCoroutine(Shoot());
 
+
     }
     
     IEnumerator Shoot()
