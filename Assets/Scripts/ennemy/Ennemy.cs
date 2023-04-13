@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class Ennemy : MonoBehaviour
 {
     
-    
+    public beacon cover;
     public NavMeshAgent ennemy;
     public Transform player;
     public LayerMask WhatIsGround, WhatIsPlayer;
@@ -14,7 +14,7 @@ public class Ennemy : MonoBehaviour
     
     // Patroling 
     public Vector3 walkPoint;
-    private bool walkpointset;
+    public bool walkpointset;
     public float walkpointrange;
     
     //Attaking
@@ -30,7 +30,7 @@ public class Ennemy : MonoBehaviour
     private void Awake()
     {
         
-        player = GameObject.Find("Orientation").transform;
+        player = GameObject.Find("Player").transform;
         ennemy = GetComponent<NavMeshAgent>();
         
     }
@@ -39,18 +39,21 @@ public class Ennemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+		Debug.Log("a");
         playerIsInSightRange = Physics.CheckSphere(transform.position,sightrange,WhatIsPlayer);
         playerIsInAttckRange = Physics.CheckSphere(transform.position,attackrange,WhatIsPlayer);	
             
         if (playerIsInSightRange && !playerIsInAttckRange)
-            ChasePlayer();
+			{Debug.Log("b");
+            ChasePlayer();}
         if (playerIsInSightRange && playerIsInAttckRange)
         {
-            
+            Debug.Log("c");
                 AttackPlayer();
         }
         if (!playerIsInAttckRange && !playerIsInSightRange)
-            ennemy.SetDestination(transform.position);
+			{Debug.Log("d");
+            Patroling();}
         
     }
 
@@ -65,7 +68,8 @@ public class Ennemy : MonoBehaviour
 		float randomX = Random.Range(-walkpointrange, walkpointrange);
 		
 		walkPoint = new Vector3(transform.position.x + randomX,transform.position.y , transform.position.z + randomZ);
-        if (Physics.Raycast(walkPoint, -transform.up, 2f, WhatIsGround) )
+        Debug.Log(Physics.Raycast(walkPoint, -transform.up, 5f, WhatIsGround));
+		if (Physics.Raycast(walkPoint, -transform.up, 5f, WhatIsGround) )
 		{
 			walkpointset = true;
 		}
@@ -99,7 +103,7 @@ public class Ennemy : MonoBehaviour
 		{
 			Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
 			rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
-			rb.AddForce(transform.up * 8f, ForceMode.Impulse);
+			
 			alreadyAttacked = true;
 			Invoke(nameof(ResetAttack), attackcd);
 		}
@@ -120,5 +124,42 @@ public class Ennemy : MonoBehaviour
 
         }
     }
+
+
+   public beacon ChoseCover()
+    {
+        GameObject l = GameObject.Find("ListBeacon");
+        ListBeacon List = l.GetComponent(typeof(ListBeacon)) as ListBeacon;
+        if (List.entitiessafe.Count!=0)
+        {
+            beacon b = List.entities[0];
+            float dist = Vector3.Distance(this.transform.position, b.transform.position);
+            foreach (var v in List.entitiessafe)
+            {
+                float dist2 = Vector3.Distance(this.transform.position, b.transform.position);
+                if (dist2 < dist)
+                {
+                    b = v;
+                    dist = Vector3.Distance(this.transform.position, v.transform.position);
+                }
+            
+            }
+
+            return b;
+            
+        }
+
+        return null;
+
+
+    }
+
+    public void TakeCover()
+    {
+        ennemy.SetDestination(cover.transform.position);
+        
+    }
+
+
 }
   

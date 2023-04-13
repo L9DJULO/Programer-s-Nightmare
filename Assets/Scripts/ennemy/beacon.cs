@@ -9,6 +9,7 @@ public class beacon : MonoBehaviour
 {
     public Transform player;
     public Transform beac;
+    public ListBeacon List;
 
     
     // Start is called before the first frame update
@@ -17,9 +18,9 @@ public class beacon : MonoBehaviour
         
         
         GameObject l = GameObject.Find("ListBeacon");
-        ListBeacon List = l.GetComponent(typeof(ListBeacon)) as ListBeacon;
+        List = l.GetComponent(typeof(ListBeacon)) as ListBeacon;
         List.entities.Add(this);
-        player = GameObject.Find("Orientation").transform;
+        player = GameObject.Find("Player").transform;
         beac = this.transform;
     }
 
