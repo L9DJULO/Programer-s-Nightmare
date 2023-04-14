@@ -10,7 +10,7 @@ public class Ennemy : MonoBehaviour
     public NavMeshAgent ennemy;
     public Transform player;
     public LayerMask WhatIsGround, WhatIsPlayer;
-	public float heath =100 ;
+	public float health =100 ;
     
     // Patroling 
     public Vector3 walkPoint;
@@ -27,10 +27,10 @@ public class Ennemy : MonoBehaviour
     private bool playerIsInSightRange, playerIsInAttckRange;
     
     
-    private void Awake()
+    private void Start()
     {
         
-        player = GameObject.Find("Player").transform;
+        player = GameObject.Find("Astronaut").transform;
         ennemy = GetComponent<NavMeshAgent>();
         
     }
@@ -39,21 +39,22 @@ public class Ennemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		Debug.Log("a");
+	    player = GameObject.Find("Astronaut").transform;
+	    if (health<51)
+	    {
+		    transform.localScale = new Vector3(2, 1, 2);
+	    }
+	    
+		
         playerIsInSightRange = Physics.CheckSphere(transform.position,sightrange,WhatIsPlayer);
         playerIsInAttckRange = Physics.CheckSphere(transform.position,attackrange,WhatIsPlayer);	
             
-        if (playerIsInSightRange && !playerIsInAttckRange)
-			{Debug.Log("b");
-            ChasePlayer();}
+        if (playerIsInSightRange && !playerIsInAttckRange) ChasePlayer();
         if (playerIsInSightRange && playerIsInAttckRange)
-        {
-            Debug.Log("c");
-                AttackPlayer();
+        { 
+	        AttackPlayer();
         }
-        if (!playerIsInAttckRange && !playerIsInSightRange)
-			{Debug.Log("d");
-            Patroling();}
+        if (!playerIsInAttckRange && !playerIsInSightRange) Patroling();
         
     }
 
@@ -68,7 +69,7 @@ public class Ennemy : MonoBehaviour
 		float randomX = Random.Range(-walkpointrange, walkpointrange);
 		
 		walkPoint = new Vector3(transform.position.x + randomX,transform.position.y , transform.position.z + randomZ);
-        Debug.Log(Physics.Raycast(walkPoint, -transform.up, 5f, WhatIsGround));
+       
 		if (Physics.Raycast(walkPoint, -transform.up, 5f, WhatIsGround) )
 		{
 			walkpointset = true;
@@ -96,8 +97,11 @@ public class Ennemy : MonoBehaviour
 
 	private void AttackPlayer()
 	{
+		
 		ennemy.SetDestination(transform.position);
-		transform.LookAt(player);
+		Vector3 playerPosition = player.position + Vector3.up * 2;
+		transform.LookAt(playerPosition);
+		
 
 		if ( !alreadyAttacked)
 		{
@@ -116,9 +120,9 @@ public class Ennemy : MonoBehaviour
 		
 	public void TakeDamage(float damage)
     {
-        heath -= damage;
-        Debug.Log("Enemy toucher ");
-        if (heath <= 0)
+        health -= damage;
+        
+        if (health <= 0)
         {
             Destroy(gameObject);
 
