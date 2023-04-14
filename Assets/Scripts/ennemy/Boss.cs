@@ -34,7 +34,7 @@ public class Boss : MonoBehaviour
 
     public GameObject Empty;
    
-    private void Awake()
+    private void Start()
     {
         rb = GetComponent<Rigidbody>(); 
         weapon = new gun(37, 20, 0.1f , 1 , 30);
