@@ -7,10 +7,11 @@ public class Ennemy : MonoBehaviour
 {
     
     public beacon cover;
+    public bool setcover;
     public NavMeshAgent ennemy;
     public Transform player;
     public LayerMask WhatIsGround, WhatIsPlayer;
-	public float heath =100 ;
+	public float health =100 ;
     
     // Patroling 
     public Vector3 walkPoint;
@@ -21,6 +22,9 @@ public class Ennemy : MonoBehaviour
     public float attackcd;
     private bool alreadyAttacked;
 	public GameObject projectile;
+	public GameObject projectile2;
+
+	public bool grenade = false;
     
     //State
     public float sightrange, attackrange;
@@ -30,7 +34,7 @@ public class Ennemy : MonoBehaviour
     private void Awake()
     {
         
-        player = GameObject.Find("Player").transform;
+        
         ennemy = GetComponent<NavMeshAgent>();
         
     }
@@ -39,21 +43,41 @@ public class Ennemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		Debug.Log("a");
-        playerIsInSightRange = Physics.CheckSphere(transform.position,sightrange,WhatIsPlayer);
-        playerIsInAttckRange = Physics.CheckSphere(transform.position,attackrange,WhatIsPlayer);	
-            
-        if (playerIsInSightRange && !playerIsInAttckRange)
-			{Debug.Log("b");
-            ChasePlayer();}
-        if (playerIsInSightRange && playerIsInAttckRange)
-        {
-            Debug.Log("c");
-                AttackPlayer();
-        }
-        if (!playerIsInAttckRange && !playerIsInSightRange)
-			{Debug.Log("d");
-            Patroling();}
+		
+	    playerIsInSightRange = Physics.CheckSphere(transform.position,sightrange,WhatIsPlayer);
+	    playerIsInAttckRange = Physics.CheckSphere(transform.position,attackrange,WhatIsPlayer);	
+	    player = GameObject.Find("Astronaut").transform;
+	    if (health<51)
+	    {
+		     cover = ChoseCover();
+		     Vector3 distanceToWalkPoint = transform.position - cover.transform.position;
+
+		     if (distanceToWalkPoint.magnitude < 2f && !alreadyAttacked)
+		     {
+			     transform.localScale = new Vector3(1.5f, 1f, 1.5f);
+			     Invoke(nameof(AttackPlayer), 0.5f);
+		     }
+		     else
+		     {
+			     TakeCover();
+		     }
+		     
+		     
+	    }
+		    
+	    
+	    else
+	    {
+		    if (playerIsInSightRange && !playerIsInAttckRange) ChasePlayer();
+		    if (playerIsInSightRange && playerIsInAttckRange)
+		    { 
+			    AttackPlayer();
+		    }
+		    if (!playerIsInAttckRange && !playerIsInSightRange) Patroling();
+	    }
+		
+        
+	    
         
     }
 
@@ -68,7 +92,7 @@ public class Ennemy : MonoBehaviour
 		float randomX = Random.Range(-walkpointrange, walkpointrange);
 		
 		walkPoint = new Vector3(transform.position.x + randomX,transform.position.y , transform.position.z + randomZ);
-        Debug.Log(Physics.Raycast(walkPoint, -transform.up, 5f, WhatIsGround));
+        
 		if (Physics.Raycast(walkPoint, -transform.up, 5f, WhatIsGround) )
 		{
 			walkpointset = true;
@@ -97,15 +121,39 @@ public class Ennemy : MonoBehaviour
 	private void AttackPlayer()
 	{
 		ennemy.SetDestination(transform.position);
-		transform.LookAt(player);
+		Vector3 playerPosition = player.position + Vector3.up;
+		transform.LookAt(playerPosition);
+		
 
 		if ( !alreadyAttacked)
 		{
-			Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
-			rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
-			
-			alreadyAttacked = true;
-			Invoke(nameof(ResetAttack), attackcd);
+			if (clear())
+			{
+				Vector3 tire = transform.position + transform.up*1f;
+				if (grenade)
+				{
+					Rigidbody rb = Instantiate(projectile2, tire, Quaternion.identity).GetComponent<Rigidbody>();
+					rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
+					rb.AddForce(transform.up * 8f, ForceMode.Impulse);
+				}
+				else
+				{
+					Rigidbody rb = Instantiate(projectile, tire, Quaternion.identity).GetComponent<Rigidbody>();
+					rb.AddForce(transform.forward * 40f, ForceMode.Impulse);
+				}
+
+				if (health < 51)
+				{
+					transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+				}
+				alreadyAttacked = true;
+				Invoke(nameof(ResetAttack), attackcd);
+			}
+			else
+			{
+				ChasePlayer();
+			}
+
 		}
 	}
 
@@ -116,9 +164,9 @@ public class Ennemy : MonoBehaviour
 		
 	public void TakeDamage(float damage)
     {
-        heath -= damage;
-        Debug.Log("Enemy toucher ");
-        if (heath <= 0)
+        health -= damage;
+        
+        if (health <= 0)
         {
             Destroy(gameObject);
 
@@ -132,11 +180,12 @@ public class Ennemy : MonoBehaviour
         ListBeacon List = l.GetComponent(typeof(ListBeacon)) as ListBeacon;
         if (List.entitiessafe.Count!=0)
         {
-            beacon b = List.entities[0];
+            beacon b = List.entitiessafe[0];
             float dist = Vector3.Distance(this.transform.position, b.transform.position);
             foreach (var v in List.entitiessafe)
             {
-                float dist2 = Vector3.Distance(this.transform.position, b.transform.position);
+	           
+                float dist2 = Vector3.Distance(this.transform.position, v.transform.position);
                 if (dist2 < dist)
                 {
                     b = v;
@@ -145,10 +194,12 @@ public class Ennemy : MonoBehaviour
             
             }
 
+            setcover = true;
             return b;
             
         }
 
+        setcover = false;
         return null;
 
 
@@ -156,8 +207,33 @@ public class Ennemy : MonoBehaviour
 
     public void TakeCover()
     {
-        ennemy.SetDestination(cover.transform.position);
+	    if (cover!=null)
+	    {
+		    ennemy.SetDestination(cover.transform.position);
+
+	    }
         
+    }
+    public bool clear()
+    {
+        
+            
+	    Vector3 direction = player.position -  (transform.position - transform.up)  ;
+
+            
+	    RaycastHit hit;
+	    if (Physics.Raycast(transform.position+transform.up, direction, out hit))
+	    {
+               
+		    if (hit.collider.CompareTag("Wall") || hit.collider.CompareTag("Untagged") )
+		    {
+			    return false;
+		    }
+	    }
+
+	    return true;
+
+
     }
 
 

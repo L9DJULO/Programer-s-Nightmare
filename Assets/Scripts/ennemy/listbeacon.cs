@@ -29,7 +29,7 @@ public class ListBeacon : MonoBehaviour
 
         foreach (beacon entity in entities)
         {
-            if (!entity.Cover())
+            if (entity.Cover())
             {
                 entitiessafe.Add(entity);
             }

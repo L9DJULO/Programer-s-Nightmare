@@ -20,14 +20,14 @@ public class beacon : MonoBehaviour
         GameObject l = GameObject.Find("ListBeacon");
         List = l.GetComponent(typeof(ListBeacon)) as ListBeacon;
         List.entities.Add(this);
-        player = GameObject.Find("Player").transform;
         beac = this.transform;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+		
+        player = GameObject.Find("Astronaut").transform;
     }
 
     public bool Cover()
@@ -41,7 +41,7 @@ public class beacon : MonoBehaviour
             if (Physics.Raycast(beac.position, direction, out hit))
             {
                
-                if (hit.collider.CompareTag("Wall"))
+                if (hit.collider.CompareTag("Wall") || hit.collider.CompareTag("Ground") )
                 {
                     return true;
                 }
