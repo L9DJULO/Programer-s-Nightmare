@@ -7,6 +7,7 @@ public class Ennemy : MonoBehaviour
 {
     
     public beacon cover;
+    public bool setcover;
     public NavMeshAgent ennemy;
     public Transform player;
     public LayerMask WhatIsGround, WhatIsPlayer;
@@ -39,22 +40,46 @@ public class Ennemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+	    playerIsInSightRange = Physics.CheckSphere(transform.position,sightrange,WhatIsPlayer);
+	    playerIsInAttckRange = Physics.CheckSphere(transform.position,attackrange,WhatIsPlayer);	
 	    player = GameObject.Find("Astronaut").transform;
 	    if (health<51)
 	    {
-		    transform.localScale = new Vector3(2, 1, 2);
+		     cover = ChoseCover();
+		    if (setcover)
+		    {
+			    Vector3 distanceToWalkPoint = transform.position - cover.transform.position;
+			    if (distanceToWalkPoint.magnitude < 0.2f)
+			    {
+				    transform.localScale = new Vector3(2, 2, 2);
+				    if (playerIsInSightRange && playerIsInAttckRange)
+				    { 
+					    AttackPlayer();
+				    }
+				    transform.localScale = new Vector3(2, 1, 2);
+				    
+			    }
+				    else
+			    {
+				    TakeCover();
+			    }
+			    
+		    }
+		    
 	    }
-	    
+	    else
+	    {
+		    if (playerIsInSightRange && !playerIsInAttckRange) ChasePlayer();
+		    if (playerIsInSightRange && playerIsInAttckRange)
+		    { 
+			    AttackPlayer();
+		    }
+		    if (!playerIsInAttckRange && !playerIsInSightRange) Patroling();
+	    }
 		
-        playerIsInSightRange = Physics.CheckSphere(transform.position,sightrange,WhatIsPlayer);
-        playerIsInAttckRange = Physics.CheckSphere(transform.position,attackrange,WhatIsPlayer);	
+        
             
-        if (playerIsInSightRange && !playerIsInAttckRange) ChasePlayer();
-        if (playerIsInSightRange && playerIsInAttckRange)
-        { 
-	        AttackPlayer();
-        }
-        if (!playerIsInAttckRange && !playerIsInSightRange) Patroling();
+        
         
     }
 
@@ -140,7 +165,7 @@ public class Ennemy : MonoBehaviour
             float dist = Vector3.Distance(this.transform.position, b.transform.position);
             foreach (var v in List.entitiessafe)
             {
-                float dist2 = Vector3.Distance(this.transform.position, b.transform.position);
+                float dist2 = Vector3.Distance(this.transform.position, v.transform.position);
                 if (dist2 < dist)
                 {
                     b = v;
@@ -149,10 +174,12 @@ public class Ennemy : MonoBehaviour
             
             }
 
+            setcover = true;
             return b;
             
         }
 
+        setcover = false;
         return null;
 
 

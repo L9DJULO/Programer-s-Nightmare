@@ -16,7 +16,7 @@ public class beacon : MonoBehaviour
     void Start()
     {
         
-        Debug.Log("yo");
+        
         GameObject l = GameObject.Find("ListBeacon");
         List = l.GetComponent(typeof(ListBeacon)) as ListBeacon;
         List.entities.Add(this);
@@ -41,7 +41,7 @@ public class beacon : MonoBehaviour
             if (Physics.Raycast(beac.position, direction, out hit))
             {
                
-                if (hit.collider.CompareTag("Wall"))
+                if (hit.collider.CompareTag("Wall") || hit.collider.CompareTag("Ground") )
                 {
                     return true;
                 }
