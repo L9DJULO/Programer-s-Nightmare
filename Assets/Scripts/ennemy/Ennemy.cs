@@ -23,6 +23,8 @@ public class Ennemy : MonoBehaviour
     private bool alreadyAttacked;
 	public GameObject projectile;
 	public GameObject projectile2;
+
+	public bool grenade = false;
     
     //State
     public float sightrange, attackrange;
@@ -41,15 +43,26 @@ public class Ennemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+		
 	    playerIsInSightRange = Physics.CheckSphere(transform.position,sightrange,WhatIsPlayer);
 	    playerIsInAttckRange = Physics.CheckSphere(transform.position,attackrange,WhatIsPlayer);	
 	    player = GameObject.Find("Astronaut").transform;
 	    if (health<51)
 	    {
 		     cover = ChoseCover();
-		     Debug.Log(ChoseCover());	
-		     TakeCover();
+		     Vector3 distanceToWalkPoint = transform.position - cover.transform.position;
+
+		     if (distanceToWalkPoint.magnitude < 2f && !alreadyAttacked)
+		     {
+			     transform.localScale = new Vector3(1.5f, 1f, 1.5f);
+			     Invoke(nameof(AttackPlayer), 0.5f);
+		     }
+		     else
+		     {
+			     TakeCover();
+		     }
+		     
+		     
 	    }
 		    
 	    
@@ -108,16 +121,39 @@ public class Ennemy : MonoBehaviour
 	private void AttackPlayer()
 	{
 		ennemy.SetDestination(transform.position);
-		Vector3 playerPosition = player.position + Vector3.up*1.5f;
+		Vector3 playerPosition = player.position + Vector3.up;
 		transform.LookAt(playerPosition);
+		
 
 		if ( !alreadyAttacked)
 		{
-			Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
-			rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
-			
-			alreadyAttacked = true;
-			Invoke(nameof(ResetAttack), attackcd);
+			if (clear())
+			{
+				Vector3 tire = transform.position + transform.up*1f;
+				if (grenade)
+				{
+					Rigidbody rb = Instantiate(projectile2, tire, Quaternion.identity).GetComponent<Rigidbody>();
+					rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
+					rb.AddForce(transform.up * 8f, ForceMode.Impulse);
+				}
+				else
+				{
+					Rigidbody rb = Instantiate(projectile, tire, Quaternion.identity).GetComponent<Rigidbody>();
+					rb.AddForce(transform.forward * 40f, ForceMode.Impulse);
+				}
+
+				if (health < 51)
+				{
+					transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+				}
+				alreadyAttacked = true;
+				Invoke(nameof(ResetAttack), attackcd);
+			}
+			else
+			{
+				ChasePlayer();
+			}
+
 		}
 	}
 
@@ -177,6 +213,27 @@ public class Ennemy : MonoBehaviour
 
 	    }
         
+    }
+    public bool clear()
+    {
+        
+            
+	    Vector3 direction = player.position -  (transform.position - transform.up)  ;
+
+            
+	    RaycastHit hit;
+	    if (Physics.Raycast(transform.position+transform.up, direction, out hit))
+	    {
+               
+		    if (hit.collider.CompareTag("Wall") || hit.collider.CompareTag("Untagged") )
+		    {
+			    return false;
+		    }
+	    }
+
+	    return true;
+
+
     }
 
 
