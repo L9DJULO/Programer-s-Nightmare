@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PowerUpHook : MonoBehaviour
 {
+	public GameObject pickupEffect;
+    public GameObject Panel;
     private bool test = false;
 
 
@@ -11,10 +13,18 @@ public class PowerUpHook : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Pickup(other);
+            StartCoroutine(_enumerator(other));
         }
-
     }
+
+	IEnumerator _enumerator(Collider other)
+    {
+        Panel.SetActive(true);
+        yield return new WaitForSeconds(2);
+        Panel.SetActive(false);
+        Pickup(other);
+    }
+
     void Pickup(Collider player)
     {
         // Spawn a cool effect

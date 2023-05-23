@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PowerUpDoubleJump : MonoBehaviour
 {
+    public GameObject Panel;
     public GameObject pickupEffect;
     public static bool canDoubleJump = false;
     void Start()
@@ -14,9 +15,16 @@ public class PowerUpDoubleJump : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Pickup(other);
+            StartCoroutine(_enumerator(other));
         }
-        
+    }
+
+    IEnumerator _enumerator(Collider other)
+    {
+        Panel.SetActive(true);
+        yield return new WaitForSeconds(2);
+        Panel.SetActive(false);
+        Pickup(other);
     }
     void Pickup(Collider player)
     {

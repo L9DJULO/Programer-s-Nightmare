@@ -11,8 +11,6 @@ GameObject:
   - component: {fileID: 3090995883372267612}
   - component: {fileID: 4911780716844107248}
   - component: {fileID: 5448439338365080625}
-  - component: {fileID: 2660274633484815199}
-  - component: {fileID: 7648934431743812886}
   - component: {fileID: 9170185066816877759}
   m_Layer: 0
   m_Name: BACKINTIME
@@ -91,34 +89,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2660274633484815199
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2471656580276196392}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40b69cf0b735e9040b745a1917eafc1b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pickupEffect: {fileID: 5873547337282942876}
---- !u!114 &7648934431743812886
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2471656580276196392}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ad6bfbd183d1654597870340b61ccbe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pickupEffect: {fileID: 5873547337282942876}
-  Panel: {fileID: 0}
-  Healthbar: {fileID: 0}
 --- !u!114 &9170185066816877759
 MonoBehaviour:
   m_ObjectHideFlags: 0
