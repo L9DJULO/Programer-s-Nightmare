@@ -12,9 +12,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Levels/Multi/LEVEL_1.unity
     guid: 4157fd07dd249ba48974fbca2ddbc5b9
   - enabled: 1
-    path: Assets/Scenes/Levels/Solo/LEVEL_1S.unity
-    guid: d6a3ec8e4f3f49546ac789ce0be5baa5
-  - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 1888821f2ddec9542a465d5c09319627
   - enabled: 1
@@ -23,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/JulesMenu/Lobby.unity
     guid: dd748f3307ff9844d86729550bdc1d3c
+  - enabled: 1
+    path: Assets/Scenes/Levels/Solo/LEVEL_1S.unity
+    guid: 910b108c0c5575d4b854470359ddc282
   m_configObjects: {}

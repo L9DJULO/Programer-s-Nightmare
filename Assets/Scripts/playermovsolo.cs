@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Windows.Input;
+using Photon.Pun;
+
 public class playermovsolo : MonoBehaviour
 {
     float playerHeight = 2f;
@@ -41,6 +43,16 @@ public class playermovsolo : MonoBehaviour
     Vector3 oldPosition;
     public LayerMask Lava;
     public Camera cam;
+
+    public void Awake()
+    {
+        PhotonView photonView = GetComponent<PhotonView>();
+        if (!photonView || photonView.IsMine)
+        {
+            cam.gameObject.SetActive(true);
+        }
+    }
+
     private void Start()
     {
         animator = GetComponent<Animator>();

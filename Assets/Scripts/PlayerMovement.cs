@@ -99,7 +99,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
         animator.SetBool("grounded", isGrounded);
-        if (view.isMine)
+        if (view.IsMine)
         {
             if (islava)
             {

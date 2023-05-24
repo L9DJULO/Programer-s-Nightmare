@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.46725482, g: 0.5837586, b: 0.7489622, a: 1}
+  m_IndirectSpecularColor: {r: 0.5019536, g: 0.5019536, b: 0.5019536, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1118,7 +1118,7 @@ GameObject:
   - component: {fileID: 1042117287}
   - component: {fileID: 1042117286}
   m_Layer: 0
-  m_Name: CreateAndJoinRooms
+  m_Name: MenuNetwork
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1133,11 +1133,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1042117285}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6595d6c1b5de03543931b30833c5ed2e, type: 3}
+  m_Script: {fileID: 11500000, guid: f1fae2d4c28869f44bcd6c85553d4928, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  createInput: {fileID: 778593498}
-  joinInput: {fileID: 914175493}
+  maxPlayers: 3
+  inputField_RoomNameJoin: {fileID: 778593498}
+  inputField_RoomNameCreate: {fileID: 914175493}
+  NameLoadLevel: LEVEL_1
 --- !u!4 &1042117287
 Transform:
   m_ObjectHideFlags: 0
@@ -1236,7 +1238,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1042117286}
-        m_TargetAssemblyTypeName: CreateAndJoinRooms, Assembly-CSharp
+        m_TargetAssemblyTypeName: MenuNetwork, Assembly-CSharp
         m_MethodName: JoinRoom
         m_Mode: 1
         m_Arguments:
@@ -1627,7 +1629,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1042117286}
-        m_TargetAssemblyTypeName: CreateAndJoinRooms, Assembly-CSharp
+        m_TargetAssemblyTypeName: MenuNetwork, Assembly-CSharp
         m_MethodName: CreateRoom
         m_Mode: 1
         m_Arguments:

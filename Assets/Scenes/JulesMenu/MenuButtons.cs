@@ -20,17 +20,17 @@ public class MenuButtons : MonoBehaviour
         Application.OpenURL("http://unity3d.com/");
     }
 
-    public void LoadGame(int sceneIndex)
+    public void LoadGame(string nameScene)
     {
-        StartCoroutine(Load(sceneIndex));
+        StartCoroutine(Load(nameScene));
     }
 
-    IEnumerator Load(int sceneIndex)
+    IEnumerator Load(string nameScene)
     {
 
         loadingScreen.SetActive(true);
         HomeScreen.SetActive(false);
-        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
+        AsyncOperation operation = SceneManager.LoadSceneAsync(nameScene);
 
         while (!operation.isDone)
         {

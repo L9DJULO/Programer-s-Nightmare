@@ -32,7 +32,7 @@ public class look : MonoBehaviour
     }
     private void Update()
     {
-       if (view.isMine)
+       if (view.IsMine)
         {
             MyInput();
 
