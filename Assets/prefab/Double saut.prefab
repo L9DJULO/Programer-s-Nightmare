@@ -87,7 +87,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 1.72
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &4313218276840744432
 MonoBehaviour:
@@ -101,6 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40b69cf0b735e9040b745a1917eafc1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Panel: {fileID: 0}
   pickupEffect: {fileID: 4491621673181866495}
 --- !u!1 &4491621673181866495
 GameObject:

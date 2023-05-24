@@ -5,13 +5,21 @@ using UnityEngine;
 public class takegun : MonoBehaviour
 {
     public GameObject takgun;
+    public GameObject Panel;
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player")) 
         {
-            Pickup(other);
+            StartCoroutine(_enumerator(other));
         }
-
+    }
+    
+    IEnumerator _enumerator(Collider other)
+    {
+        Panel.SetActive(true);
+        yield return new WaitForSeconds(5);
+        Panel.SetActive(false);
+        Pickup(other);
     }
     void Pickup(Collider player)
     {

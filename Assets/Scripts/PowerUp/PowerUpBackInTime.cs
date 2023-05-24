@@ -17,7 +17,7 @@ public class PowerUpBackInTime : MonoBehaviour
     IEnumerator _enumerator(Collider other)
     {
         Panel.SetActive(true);
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(3);
         Panel.SetActive(false);
         Pickup(other);
     }
