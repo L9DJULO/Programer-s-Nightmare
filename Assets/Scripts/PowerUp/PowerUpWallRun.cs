@@ -7,12 +7,14 @@ public class PowerUpWallRun : MonoBehaviour
     public static bool HaveWallRun =false;
     public GameObject pickupEffect;
     public GameObject Panel;
-  
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
+       
             StartCoroutine(_enumerator(other));
+
         }
     }
 
@@ -30,6 +32,6 @@ public class PowerUpWallRun : MonoBehaviour
         Instantiate(pickupEffect, transform.position, transform.rotation);
         // Apply effect to the player
         HaveWallRun = true;
-		Destroy(gameObject);
+        Destroy(gameObject);
     }
 }

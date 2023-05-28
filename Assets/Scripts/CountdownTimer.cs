@@ -1,43 +1,64 @@
 using UnityEngine;
-
+using UnityEngine.UI;
 
 public class CountdownTimer : MonoBehaviour
 {
-    public float timeValue = 60f;
+    public float timeValue = 60f; // Durée du compte à rebours en secondes
+    public Text timerText; // Référence à l'élément de texte pour afficher le timer
     private bool isRunning = false;
-
-    public GameObject levelCompleteMessage; // Référence au GameObject contenant le message de réussite du niveau
 
     private void Start()
     {
-        levelCompleteMessage.SetActive(false);
-        StartTimer();// Assurez-vous que le message de réussite du niveau est désactivé au début
+        if (timerText != null)
+        {
+            timerText.gameObject.SetActive(false); // Désactive l'élément de texte au départ
+        }
+    }
+
+    private void Update()
+    {
+        if (isRunning)
+        {
+            if (timeValue > 0)
+            {
+                timeValue -= Time.deltaTime;
+            }
+            else
+            {
+                timeValue = 0;
+                StopTimer();
+            }
+
+            DisplayTime(timeValue);
+        }
     }
 
     public void StartTimer()
     {
         isRunning = true;
-        InvokeRepeating("Countdown", 0f, 1f);
-    }
-
-    private void Countdown()
-    {
-        if (timeValue > 0)
+        if (timerText != null)
         {
-            Debug.Log("Time Remaining: " + timeValue);
-            timeValue -= 1f;
-        }
-        else
-        {
-            StopTimer();
-            Debug.Log("Time's Up!");
+            timerText.gameObject.SetActive(true); // Active l'élément de texte lorsque le timer démarre
+            timerText.text = "Temps Restant : " + Mathf.FloorToInt(timeValue).ToString();
         }
     }
 
     private void StopTimer()
     {
         isRunning = false;
-        CancelInvoke("Countdown");
-        levelCompleteMessage.SetActive(true); // Active le message de réussite du niveau
+        timerText.gameObject.SetActive(false); // Désactive l'élément de texte lorsque le timer s'arrête
+    }
+
+    private void DisplayTime(float timeToDisplay)
+    {
+        if (timeToDisplay < 0)
+        {
+            timeToDisplay = 0;
+        }
+
+        if (timerText != null)
+        {
+            timerText.text = "Temps Restant : " + Mathf.FloorToInt(timeToDisplay).ToString();
+        }
     }
 }
