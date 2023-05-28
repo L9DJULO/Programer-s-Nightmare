@@ -27,7 +27,7 @@ public class beacon : MonoBehaviour
     void Update()
     {
 		
-        player = GameObject.Find("Player").transform;
+       player = ChoseJ().transform;
     }
 
     public bool Cover()
@@ -41,7 +41,7 @@ public class beacon : MonoBehaviour
             if (Physics.Raycast(beac.position, direction, out hit))
             {
                
-                if (hit.collider.CompareTag("Wall") || hit.collider.CompareTag("Ground") )
+                if (hit.collider.CompareTag("Wall") || hit.collider.CompareTag("Ground") || hit.collider.CompareTag("Untagged"))
                 {
                     return true;
                 }
@@ -52,4 +52,35 @@ public class beacon : MonoBehaviour
 
     }
     
+    public playermovsolo ChoseJ()
+    {
+	    GameObject l = GameObject.Find("ListBeacon");
+	    ListBeacon List = l.GetComponent(typeof(ListBeacon)) as ListBeacon;
+	    if (List.joueurs.Count!=0)
+	    {
+		    playermovsolo b = List.joueurs[0];
+		    float dist = Vector3.Distance(this.transform.position, b.transform.position);
+		    foreach (var v in List.joueurs)
+		    {
+	           
+			    float dist2 = Vector3.Distance(this.transform.position, v.transform.position);
+			    if (dist2 < dist)
+			    {
+				    b = v;
+				    dist = Vector3.Distance(this.transform.position, v.transform.position);
+			    }
+            
+		    }
+		    
+		    return b;
+            
+	    }
+
+	  
+	    return null;
+
+
+    }
+
+
 }

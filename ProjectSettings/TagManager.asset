@@ -9,6 +9,7 @@ TagManager:
   - Ground
   - LAVA
   - Wall
+  - Bulletj
   layers:
   - Default
   - TransparentFX

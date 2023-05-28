@@ -46,7 +46,7 @@ public class Ennemy : MonoBehaviour
 		
 	    playerIsInSightRange = Physics.CheckSphere(transform.position,sightrange,WhatIsPlayer);
 	    playerIsInAttckRange = Physics.CheckSphere(transform.position,attackrange,WhatIsPlayer);	
-	    player = GameObject.Find("Player").transform;
+	    player = ChoseJ().transform;
 	    if (health<51)
 	    {
 		     cover = ChoseCover();
@@ -109,7 +109,7 @@ public class Ennemy : MonoBehaviour
 
 		Vector3 distanceToWalkPoint = transform.position - walkPoint;
 
-		if ( distanceToWalkPoint.magnitude < 1f)
+		if ( distanceToWalkPoint.magnitude < 3f)
 			walkpointset = false;
 	}
 
@@ -162,9 +162,9 @@ public class Ennemy : MonoBehaviour
 		alreadyAttacked = false;
 	}
 		
-	public void TakeDamage(float damage)
+	public void TakeDamage()
     {
-        health -= damage;
+        health -= 35;
         
         if (health <= 0)
         {
@@ -225,7 +225,7 @@ public class Ennemy : MonoBehaviour
 	    if (Physics.Raycast(transform.position+transform.up, direction, out hit))
 	    {
                
-		    if (hit.collider.CompareTag("Wall") || hit.collider.CompareTag("Untagged") )
+		    if (hit.collider.CompareTag("Wall") || hit.collider.CompareTag("Untagged") || hit.collider.CompareTag("Ground"))
 		    {
 			    return false;
 		    }
@@ -234,6 +234,46 @@ public class Ennemy : MonoBehaviour
 	    return true;
 
 
+    }
+    
+    public playermovsolo ChoseJ()
+    {
+	    GameObject l = GameObject.Find("ListBeacon");
+	    ListBeacon List = l.GetComponent(typeof(ListBeacon)) as ListBeacon;
+	    if (List.joueurs.Count!=0)
+	    {
+		    playermovsolo b = List.joueurs[0];
+		    float dist = Vector3.Distance(this.transform.position, b.transform.position);
+		    foreach (var v in List.joueurs)
+		    {
+	           
+			    float dist2 = Vector3.Distance(this.transform.position, v.transform.position);
+			    if (dist2 < dist)
+			    {
+				    b = v;
+				    dist = Vector3.Distance(this.transform.position, v.transform.position);
+			    }
+            
+		    }
+		    
+		    return b;
+            
+	    }
+
+	    
+	    return null;
+
+
+    }
+    
+    private void OnTriggerEnter(Collider other)
+    {
+	    if (other.CompareTag("Bulletj"))
+	    {
+		    Debug.Log("Collider entered");
+		    TakeDamage();
+	    }
+	    
     }
 
 

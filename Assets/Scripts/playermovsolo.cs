@@ -43,6 +43,8 @@ public class playermovsolo : MonoBehaviour
     Vector3 oldPosition;
     public LayerMask Lava;
     public Camera cam;
+    
+    public ListBeacon List;
 
     public void Awake()
     {
@@ -61,6 +63,10 @@ public class playermovsolo : MonoBehaviour
         oldPosition = rb.position;
         visible = false;
         countJump = 0;
+        GameObject l = GameObject.Find("ListBeacon");
+        List = l.GetComponent(typeof(ListBeacon)) as ListBeacon;
+        List.joueurs.Add(this);
+      
     }
 
     private bool visible;

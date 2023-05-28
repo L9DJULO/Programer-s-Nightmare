@@ -214,6 +214,20 @@ MonoBehaviour:
   m_SynchronizeLayers:
   - SynchronizeType: 2
     LayerIndex: 0
+--- !u!114 &1035813055190064438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9006484082364344099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bdcde91043e48c48a68a97ffd554a6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackcd: 0
+  projectile: {fileID: 5075884922389350011, guid: b820a4ba387d0c3478a61a7afd6934b4, type: 3}
 --- !u!114 &1415430650320776385
 MonoBehaviour:
   m_ObjectHideFlags: 0

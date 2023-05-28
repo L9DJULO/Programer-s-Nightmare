@@ -44,6 +44,7 @@ public class PlayerMovement : MonoBehaviour
     Vector3 oldPosition;
     public LayerMask Lava;
     public Camera cam;
+    
     private void Start()
     {
         animator = GetComponent<Animator>();
@@ -52,7 +53,8 @@ public class PlayerMovement : MonoBehaviour
         oldPosition = rb.position ;
         view = GetComponent<PhotonView>();
         visible = false;
-        countJump = 0;
+        countJump = 0; 
+        
     }
 
     private bool visible;
