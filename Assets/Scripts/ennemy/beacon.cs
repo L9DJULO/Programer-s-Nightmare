@@ -27,7 +27,7 @@ public class beacon : MonoBehaviour
     void Update()
     {
 		
-        player = GameObject.Find("Astronaut").transform;
+        player = GameObject.Find("Player").transform;
     }
 
     public bool Cover()

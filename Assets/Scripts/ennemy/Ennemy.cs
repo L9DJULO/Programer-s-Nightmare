@@ -46,7 +46,7 @@ public class Ennemy : MonoBehaviour
 		
 	    playerIsInSightRange = Physics.CheckSphere(transform.position,sightrange,WhatIsPlayer);
 	    playerIsInAttckRange = Physics.CheckSphere(transform.position,attackrange,WhatIsPlayer);	
-	    player = GameObject.Find("Astronaut").transform;
+	    player = GameObject.Find("Player").transform;
 	    if (health<51)
 	    {
 		     cover = ChoseCover();
