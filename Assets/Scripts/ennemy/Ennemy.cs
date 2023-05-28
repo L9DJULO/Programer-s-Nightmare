@@ -294,14 +294,17 @@ public class Ennemy : MonoBehaviour
     {
 	    foreach (var v in List.ally)
 	    {
-		    
-		    float dist2 = Vector3.Distance(this.transform.position, v.transform.position);
-		    if (dist2 < 20f)
+		    if (v != null)
 		    {
-			    Debug.Log("alert");
-			    v.alert = true;
-			    Invoke(nameof(v.finallert), 3);
+			    float dist2 = Vector3.Distance(this.transform.position, v.transform.position);
+			    if (dist2 < 20f)
+			    {
+				    Debug.Log("alert");
+				    v.alert = true;
+				    Invoke(nameof(v.finallert), 3);
+			    }
 		    }
+		   
             
 	    }
 	    
