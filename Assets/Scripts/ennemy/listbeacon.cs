@@ -12,6 +12,7 @@ public class ListBeacon : MonoBehaviour
     public List<beacon> entities;
     public List<beacon> entitiessafe;
     public List<playermovsolo> joueurs;
+ 	public List<Ennemy> ally;
    
 
     void Awake()
@@ -19,7 +20,8 @@ public class ListBeacon : MonoBehaviour
         
         entities = new List<beacon>();
         entitiessafe = new List<beacon>();
-        joueurs = new List<playermovsolo>();         
+        joueurs = new List<playermovsolo>();
+         ally = new List<Ennemy>();
         
     }
 

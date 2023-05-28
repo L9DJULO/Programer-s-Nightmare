@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class Ennemy : MonoBehaviour
 {
-    
+	public bool alert;
     public beacon cover;
     public bool setcover;
     public NavMeshAgent ennemy;
@@ -29,6 +29,7 @@ public class Ennemy : MonoBehaviour
     //State
     public float sightrange, attackrange;
     private bool playerIsInSightRange, playerIsInAttckRange;
+    public ListBeacon List;
     
     
     private void Awake()
@@ -37,6 +38,14 @@ public class Ennemy : MonoBehaviour
         
         ennemy = GetComponent<NavMeshAgent>();
         
+    }
+
+    private void Start()
+    {
+	    alert = false;
+	    GameObject l = GameObject.Find("ListBeacon");
+	    List = l.GetComponent(typeof(ListBeacon)) as ListBeacon;
+	    List.ally.Add(this);
     }
     
 
@@ -68,9 +77,14 @@ public class Ennemy : MonoBehaviour
 	    
 	    else
 	    {
-		    if (playerIsInSightRange && !playerIsInAttckRange) ChasePlayer();
+		    if ((playerIsInSightRange || alert) && !playerIsInAttckRange)
+		    {
+			    allert();
+			    ChasePlayer();
+		    }
 		    if (playerIsInSightRange && playerIsInAttckRange)
-		    { 
+		    {
+			    allert();
 			    AttackPlayer();
 		    }
 		    if (!playerIsInAttckRange && !playerIsInSightRange) Patroling();
@@ -276,6 +290,27 @@ public class Ennemy : MonoBehaviour
 	    
     }
 
+    private void allert()
+    {
+	    foreach (var v in List.ally)
+	    {
+		    
+		    float dist2 = Vector3.Distance(this.transform.position, v.transform.position);
+		    if (dist2 < 20f)
+		    {
+			    Debug.Log("alert");
+			    v.alert = true;
+			    Invoke(nameof(v.finallert), 3);
+		    }
+            
+	    }
+	    
+    }
+
+    public void finallert()
+    {
+	    alert = false;
+    }
 
 }
   
